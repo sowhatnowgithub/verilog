@@ -1,0 +1,82 @@
+$date
+	Sat Apr  5 17:00:46 2025
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module delay_ex1 $end
+$var wire 1 ! o1 $end
+$var wire 1 " o2 $end
+$var reg 1 # i1 $end
+$var reg 1 $ i2 $end
+$upscope $end
+$scope module ex2_Stimulus $end
+$var wire 1 % OUT $end
+$var reg 1 & A $end
+$var reg 1 ' B $end
+$var reg 1 ( C $end
+$scope module ex $end
+$var wire 1 & a $end
+$var wire 1 ' b $end
+$var wire 1 ( c $end
+$var wire 1 % out $end
+$var wire 1 ) w $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+x)
+0(
+0'
+0&
+x%
+0$
+0#
+x"
+x!
+$end
+#4
+0"
+#5
+0)
+0!
+1(
+1'
+1&
+#9
+1%
+#10
+1)
+0(
+0'
+#15
+0)
+#19
+0%
+#20
+1$
+1#
+#24
+1"
+#25
+1!
+#40
+0$
+#44
+0"
+#45
+0!
+#60
+1$
+#64
+1"
+#65
+1!
+#80

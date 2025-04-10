@@ -1,0 +1,216 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x15b60b290 .scope module, "stimulus" "stimulus" 2 65;
+ .timescale 0 0;
+v0x60000204fe70_0 .var "clear", 0 0;
+v0x60000204ff00_0 .var "clk", 0 0;
+v0x600002048000_0 .net "q", 3 0, L_0x60000234c140;  1 drivers
+S_0x15b60b400 .scope module, "r" "rippleCntr" 2 69, 2 1 0, S_0x15b60b290;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 4 "q";
+    .port_info 1 /INPUT 1 "clk";
+    .port_info 2 /INPUT 1 "clear";
+v0x60000204fcc0_0 .net "clear", 0 0, v0x60000204fe70_0;  1 drivers
+v0x60000204fd50_0 .net "clk", 0 0, v0x60000204ff00_0;  1 drivers
+v0x60000204fde0_0 .net "q", 3 0, L_0x60000234c140;  alias, 1 drivers
+L_0x60000234c000 .part L_0x60000234c140, 0, 1;
+L_0x60000234c0a0 .part L_0x60000234c140, 1, 1;
+L_0x60000234c140 .concat8 [ 1 1 1 1], L_0x600003948af0, L_0x600003948e70, L_0x6000039491f0, L_0x600003949570;
+L_0x60000234c1e0 .part L_0x60000234c140, 2, 1;
+S_0x15b60b570 .scope module, "TFF1" "ngtvTrigTFF" 2 6, 2 28 0, S_0x15b60b400;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /INPUT 1 "clk";
+    .port_info 2 /INPUT 1 "clear";
+L_0x600003948850 .functor NOT 1, L_0x600003948af0, C4<0>, C4<0>, C4<0>;
+v0x60000204e2e0_0 .net "clear", 0 0, v0x60000204fe70_0;  alias, 1 drivers
+v0x60000204e370_0 .net "clk", 0 0, v0x60000204ff00_0;  alias, 1 drivers
+v0x60000204e400_0 .net "q", 0 0, L_0x600003948af0;  1 drivers
+v0x60000204e490_0 .net "q_int", 0 0, L_0x600003948850;  1 drivers
+S_0x15b60b6e0 .scope module, "DFF" "ngtvTrigDFF" 2 35, 2 44 0, S_0x15b60b570;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /OUTPUT 1 "qBar";
+    .port_info 2 /INPUT 1 "d";
+    .port_info 3 /INPUT 1 "clk";
+    .port_info 4 /INPUT 1 "clear";
+L_0x6000039488c0 .functor NOT 1, v0x60000204ff00_0, C4<0>, C4<0>, C4<0>;
+L_0x600003948930/d .functor NOT 1, v0x60000204fe70_0, C4<0>, C4<0>, C4<0>;
+L_0x600003948930 .delay 1 (1,1,1) L_0x600003948930/d;
+L_0x6000039489a0 .functor NOT 1, L_0x600003948850, C4<0>, C4<0>, C4<0>;
+L_0x600003948a10/d .functor NAND 1, L_0x600003948850, L_0x6000039488c0, L_0x600003948930, C4<1>;
+L_0x600003948a10 .delay 1 (1,1,1) L_0x600003948a10/d;
+L_0x600003948a80/d .functor NAND 1, L_0x6000039489a0, L_0x6000039488c0, C4<1>, C4<1>;
+L_0x600003948a80 .delay 1 (1,1,1) L_0x600003948a80/d;
+L_0x600003948af0/d .functor NAND 1, L_0x600003948b60, L_0x600003948a10, C4<1>, C4<1>;
+L_0x600003948af0 .delay 1 (1,1,1) L_0x600003948af0/d;
+L_0x600003948b60/d .functor NAND 1, L_0x600003948af0, L_0x600003948a80, L_0x600003948930, C4<1>;
+L_0x600003948b60 .delay 1 (1,1,1) L_0x600003948b60/d;
+v0x60000204d710_0 .net "cBar", 0 0, L_0x600003948930;  1 drivers
+v0x60000204d050_0 .net "clear", 0 0, v0x60000204fe70_0;  alias, 1 drivers
+v0x60000204ca20_0 .net "clk", 0 0, v0x60000204ff00_0;  alias, 1 drivers
+v0x60000204def0_0 .net "clkBar", 0 0, L_0x6000039488c0;  1 drivers
+v0x60000204df80_0 .net "d", 0 0, L_0x600003948850;  alias, 1 drivers
+v0x60000204e010_0 .net "dBar", 0 0, L_0x6000039489a0;  1 drivers
+v0x60000204e0a0_0 .net "q", 0 0, L_0x600003948af0;  alias, 1 drivers
+v0x60000204e130_0 .net "qBar", 0 0, L_0x600003948b60;  1 drivers
+v0x60000204e1c0_0 .net "rBar", 0 0, L_0x600003948a80;  1 drivers
+v0x60000204e250_0 .net "sBar", 0 0, L_0x600003948a10;  1 drivers
+S_0x15b60b850 .scope module, "TFF2" "ngtvTrigTFF" 2 11, 2 28 0, S_0x15b60b400;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /INPUT 1 "clk";
+    .port_info 2 /INPUT 1 "clear";
+L_0x600003948bd0 .functor NOT 1, L_0x600003948e70, C4<0>, C4<0>, C4<0>;
+v0x60000204eac0_0 .net "clear", 0 0, v0x60000204fe70_0;  alias, 1 drivers
+v0x60000204eb50_0 .net "clk", 0 0, L_0x60000234c000;  1 drivers
+v0x60000204ebe0_0 .net "q", 0 0, L_0x600003948e70;  1 drivers
+v0x60000204ec70_0 .net "q_int", 0 0, L_0x600003948bd0;  1 drivers
+S_0x15b60b9c0 .scope module, "DFF" "ngtvTrigDFF" 2 35, 2 44 0, S_0x15b60b850;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /OUTPUT 1 "qBar";
+    .port_info 2 /INPUT 1 "d";
+    .port_info 3 /INPUT 1 "clk";
+    .port_info 4 /INPUT 1 "clear";
+L_0x600003948c40 .functor NOT 1, L_0x60000234c000, C4<0>, C4<0>, C4<0>;
+L_0x600003948cb0/d .functor NOT 1, v0x60000204fe70_0, C4<0>, C4<0>, C4<0>;
+L_0x600003948cb0 .delay 1 (1,1,1) L_0x600003948cb0/d;
+L_0x600003948d20 .functor NOT 1, L_0x600003948bd0, C4<0>, C4<0>, C4<0>;
+L_0x600003948d90/d .functor NAND 1, L_0x600003948bd0, L_0x600003948c40, L_0x600003948cb0, C4<1>;
+L_0x600003948d90 .delay 1 (1,1,1) L_0x600003948d90/d;
+L_0x600003948e00/d .functor NAND 1, L_0x600003948d20, L_0x600003948c40, C4<1>, C4<1>;
+L_0x600003948e00 .delay 1 (1,1,1) L_0x600003948e00/d;
+L_0x600003948e70/d .functor NAND 1, L_0x600003948ee0, L_0x600003948d90, C4<1>, C4<1>;
+L_0x600003948e70 .delay 1 (1,1,1) L_0x600003948e70/d;
+L_0x600003948ee0/d .functor NAND 1, L_0x600003948e70, L_0x600003948e00, L_0x600003948cb0, C4<1>;
+L_0x600003948ee0 .delay 1 (1,1,1) L_0x600003948ee0/d;
+v0x60000204e520_0 .net "cBar", 0 0, L_0x600003948cb0;  1 drivers
+v0x60000204e5b0_0 .net "clear", 0 0, v0x60000204fe70_0;  alias, 1 drivers
+v0x60000204e640_0 .net "clk", 0 0, L_0x60000234c000;  alias, 1 drivers
+v0x60000204e6d0_0 .net "clkBar", 0 0, L_0x600003948c40;  1 drivers
+v0x60000204e760_0 .net "d", 0 0, L_0x600003948bd0;  alias, 1 drivers
+v0x60000204e7f0_0 .net "dBar", 0 0, L_0x600003948d20;  1 drivers
+v0x60000204e880_0 .net "q", 0 0, L_0x600003948e70;  alias, 1 drivers
+v0x60000204e910_0 .net "qBar", 0 0, L_0x600003948ee0;  1 drivers
+v0x60000204e9a0_0 .net "rBar", 0 0, L_0x600003948e00;  1 drivers
+v0x60000204ea30_0 .net "sBar", 0 0, L_0x600003948d90;  1 drivers
+S_0x15b60bb30 .scope module, "TFF3" "ngtvTrigTFF" 2 16, 2 28 0, S_0x15b60b400;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /INPUT 1 "clk";
+    .port_info 2 /INPUT 1 "clear";
+L_0x600003948f50 .functor NOT 1, L_0x6000039491f0, C4<0>, C4<0>, C4<0>;
+v0x60000204f2a0_0 .net "clear", 0 0, v0x60000204fe70_0;  alias, 1 drivers
+v0x60000204f330_0 .net "clk", 0 0, L_0x60000234c0a0;  1 drivers
+v0x60000204f3c0_0 .net "q", 0 0, L_0x6000039491f0;  1 drivers
+v0x60000204f450_0 .net "q_int", 0 0, L_0x600003948f50;  1 drivers
+S_0x15b60bca0 .scope module, "DFF" "ngtvTrigDFF" 2 35, 2 44 0, S_0x15b60bb30;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /OUTPUT 1 "qBar";
+    .port_info 2 /INPUT 1 "d";
+    .port_info 3 /INPUT 1 "clk";
+    .port_info 4 /INPUT 1 "clear";
+L_0x600003948fc0 .functor NOT 1, L_0x60000234c0a0, C4<0>, C4<0>, C4<0>;
+L_0x600003949030/d .functor NOT 1, v0x60000204fe70_0, C4<0>, C4<0>, C4<0>;
+L_0x600003949030 .delay 1 (1,1,1) L_0x600003949030/d;
+L_0x6000039490a0 .functor NOT 1, L_0x600003948f50, C4<0>, C4<0>, C4<0>;
+L_0x600003949110/d .functor NAND 1, L_0x600003948f50, L_0x600003948fc0, L_0x600003949030, C4<1>;
+L_0x600003949110 .delay 1 (1,1,1) L_0x600003949110/d;
+L_0x600003949180/d .functor NAND 1, L_0x6000039490a0, L_0x600003948fc0, C4<1>, C4<1>;
+L_0x600003949180 .delay 1 (1,1,1) L_0x600003949180/d;
+L_0x6000039491f0/d .functor NAND 1, L_0x600003949260, L_0x600003949110, C4<1>, C4<1>;
+L_0x6000039491f0 .delay 1 (1,1,1) L_0x6000039491f0/d;
+L_0x600003949260/d .functor NAND 1, L_0x6000039491f0, L_0x600003949180, L_0x600003949030, C4<1>;
+L_0x600003949260 .delay 1 (1,1,1) L_0x600003949260/d;
+v0x60000204ed00_0 .net "cBar", 0 0, L_0x600003949030;  1 drivers
+v0x60000204ed90_0 .net "clear", 0 0, v0x60000204fe70_0;  alias, 1 drivers
+v0x60000204ee20_0 .net "clk", 0 0, L_0x60000234c0a0;  alias, 1 drivers
+v0x60000204eeb0_0 .net "clkBar", 0 0, L_0x600003948fc0;  1 drivers
+v0x60000204ef40_0 .net "d", 0 0, L_0x600003948f50;  alias, 1 drivers
+v0x60000204efd0_0 .net "dBar", 0 0, L_0x6000039490a0;  1 drivers
+v0x60000204f060_0 .net "q", 0 0, L_0x6000039491f0;  alias, 1 drivers
+v0x60000204f0f0_0 .net "qBar", 0 0, L_0x600003949260;  1 drivers
+v0x60000204f180_0 .net "rBar", 0 0, L_0x600003949180;  1 drivers
+v0x60000204f210_0 .net "sBar", 0 0, L_0x600003949110;  1 drivers
+S_0x15b60be10 .scope module, "TFF4" "ngtvTrigTFF" 2 21, 2 28 0, S_0x15b60b400;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /INPUT 1 "clk";
+    .port_info 2 /INPUT 1 "clear";
+L_0x6000039492d0 .functor NOT 1, L_0x600003949570, C4<0>, C4<0>, C4<0>;
+v0x60000204fa80_0 .net "clear", 0 0, v0x60000204fe70_0;  alias, 1 drivers
+v0x60000204fb10_0 .net "clk", 0 0, L_0x60000234c1e0;  1 drivers
+v0x60000204fba0_0 .net "q", 0 0, L_0x600003949570;  1 drivers
+v0x60000204fc30_0 .net "q_int", 0 0, L_0x6000039492d0;  1 drivers
+S_0x15b60bf80 .scope module, "DFF" "ngtvTrigDFF" 2 35, 2 44 0, S_0x15b60be10;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 1 "q";
+    .port_info 1 /OUTPUT 1 "qBar";
+    .port_info 2 /INPUT 1 "d";
+    .port_info 3 /INPUT 1 "clk";
+    .port_info 4 /INPUT 1 "clear";
+L_0x600003949340 .functor NOT 1, L_0x60000234c1e0, C4<0>, C4<0>, C4<0>;
+L_0x6000039493b0/d .functor NOT 1, v0x60000204fe70_0, C4<0>, C4<0>, C4<0>;
+L_0x6000039493b0 .delay 1 (1,1,1) L_0x6000039493b0/d;
+L_0x600003949420 .functor NOT 1, L_0x6000039492d0, C4<0>, C4<0>, C4<0>;
+L_0x600003949490/d .functor NAND 1, L_0x6000039492d0, L_0x600003949340, L_0x6000039493b0, C4<1>;
+L_0x600003949490 .delay 1 (1,1,1) L_0x600003949490/d;
+L_0x600003949500/d .functor NAND 1, L_0x600003949420, L_0x600003949340, C4<1>, C4<1>;
+L_0x600003949500 .delay 1 (1,1,1) L_0x600003949500/d;
+L_0x600003949570/d .functor NAND 1, L_0x6000039495e0, L_0x600003949490, C4<1>, C4<1>;
+L_0x600003949570 .delay 1 (1,1,1) L_0x600003949570/d;
+L_0x6000039495e0/d .functor NAND 1, L_0x600003949570, L_0x600003949500, L_0x6000039493b0, C4<1>;
+L_0x6000039495e0 .delay 1 (1,1,1) L_0x6000039495e0/d;
+v0x60000204f4e0_0 .net "cBar", 0 0, L_0x6000039493b0;  1 drivers
+v0x60000204f570_0 .net "clear", 0 0, v0x60000204fe70_0;  alias, 1 drivers
+v0x60000204f600_0 .net "clk", 0 0, L_0x60000234c1e0;  alias, 1 drivers
+v0x60000204f690_0 .net "clkBar", 0 0, L_0x600003949340;  1 drivers
+v0x60000204f720_0 .net "d", 0 0, L_0x6000039492d0;  alias, 1 drivers
+v0x60000204f7b0_0 .net "dBar", 0 0, L_0x600003949420;  1 drivers
+v0x60000204f840_0 .net "q", 0 0, L_0x600003949570;  alias, 1 drivers
+v0x60000204f8d0_0 .net "qBar", 0 0, L_0x6000039495e0;  1 drivers
+v0x60000204f960_0 .net "rBar", 0 0, L_0x600003949500;  1 drivers
+v0x60000204f9f0_0 .net "sBar", 0 0, L_0x600003949490;  1 drivers
+    .scope S_0x15b60b290;
+T_0 ;
+    %delay 5, 0;
+    %load/vec4 v0x60000204ff00_0;
+    %inv;
+    %store/vec4 v0x60000204ff00_0, 0, 1;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0x15b60b290;
+T_1 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x60000204ff00_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x60000204fe70_0, 0, 1;
+    %delay 2, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x60000204fe70_0, 0, 1;
+    %delay 5, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x60000204fe70_0, 0, 1;
+    %delay 100, 0;
+    %vpi_call 2 83 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+    .scope S_0x15b60b290;
+T_2 ;
+    %vpi_call 2 87 "$monitor", $time, " q:%b, clk:%b, clear:%b", v0x600002048000_0, v0x60000204ff00_0, v0x60000204fe70_0 {0 0 0};
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "ch6_rippleCntr2.v";

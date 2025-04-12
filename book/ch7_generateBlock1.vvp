@@ -1,0 +1,50 @@
+#! /opt/homebrew/Cellar/icarus-verilog/12.0/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/system.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_sys.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/vhdl_textio.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/v2005_math.vpi";
+:vpi_module "/opt/homebrew/Cellar/icarus-verilog/12.0/lib/ivl/va_math.vpi";
+S_0x145004d60 .scope module, "tb" "tb" 2 16;
+ .timescale 0 0;
+v0x600003e00360_0 .var "in0", 3 0;
+v0x600003e003f0_0 .var "in1", 3 0;
+v0x600003e00480_0 .net "result", 3 0, L_0x600003d04000;  1 drivers
+v0x600003e00510_0 .var "sel", 0 0;
+S_0x145004ed0 .scope module, "a" "add_or_sub" 2 21, 2 3 0, S_0x145004d60;
+ .timescale 0 0;
+    .port_info 0 /OUTPUT 4 "result";
+    .port_info 1 /INPUT 1 "sel";
+    .port_info 2 /INPUT 4 "in0";
+    .port_info 3 /INPUT 4 "in1";
+P_0x600001900800 .param/l "MODE" 0 2 3, +C4<00000000000000000000000000000000>;
+v0x600003e00120_0 .net "in0", 3 0, v0x600003e00360_0;  1 drivers
+v0x600003e001b0_0 .net "in1", 3 0, v0x600003e003f0_0;  1 drivers
+v0x600003e00240_0 .net "result", 3 0, L_0x600003d04000;  alias, 1 drivers
+v0x600003e002d0_0 .net "sel", 0 0, v0x600003e00510_0;  1 drivers
+L_0x600003d04000 .arith/sub 4, v0x600003e00360_0, v0x600003e003f0_0;
+S_0x1450057d0 .scope generate, "genblk1" "genblk1" 2 10, 2 10 0, S_0x145004ed0;
+ .timescale 0 0;
+    .scope S_0x145004d60;
+T_0 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x600003e00510_0, 0, 1;
+    %pushi/vec4 6, 0, 4;
+    %store/vec4 v0x600003e00360_0, 0, 4;
+    %pushi/vec4 2, 0, 4;
+    %store/vec4 v0x600003e003f0_0, 0, 4;
+    %delay 1, 0;
+    %vpi_call 2 27 "$display", "in0:%b, in1:%b, result:%b", v0x600003e00360_0, v0x600003e003f0_0, v0x600003e00480_0 {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x600003e00510_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 29 "$display", "in0:%b, in1:%b, result:%b", v0x600003e00360_0, v0x600003e003f0_0, v0x600003e00480_0 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "ch7_generateBlock1.v";

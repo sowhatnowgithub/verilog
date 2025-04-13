@@ -51,5 +51,5 @@ module mux2to1(output [31:0]out, input [31:0]in0, input [31:0]in1, input sel);
 assign out = sel ? in1 : in0;
 endmodule
 module addFour(output  [31:0]sum,input [31:0]in);
-assign sum = in+ 4;
+assign sum = in + 4;
 endmodule

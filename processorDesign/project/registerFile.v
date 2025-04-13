@@ -1,17 +1,21 @@
 `include "instructionDecode.v"
 
-module registerFile(readData1,readData2,writeData,sr1Addr,sr2Addr,drAddr, wr,clk,rst);
+module registerFile(ldData,clrData,readData1,readData2,writeData,sr1Addr,sr2Addr,drAddr, wr,clk,rst);
 input [3:0]sr1Addr,sr2Addr,drAddr;
-input wr,clk,rst;
-output [31:0]readData1,readData2;
+input wr,clk,rst,ldData,clrData;
+output  [31:0]readData1,readData2;
+wire [31:0]temp_readData1,temp_readData2;
 input [31:0]writeData;
 reg [31:0]regFile[0:15];
-assign readData1 = regFile[sr1Addr];
-assign readData2 = regFile[sr2Addr];
 integer i;
+assign temp_readData2 = regFile[sr2Addr];
+assign temp_readData1 = regFile[sr1Addr];
+dff d1(.q(readData1),.d(temp_readData1),.ld(ldData),.clr(clrData),.clk(clk));
+dff d2(.q(readData2),.d(temp_readData2),.ld(ldData),.clr(clrData),.clk(clk));
+
 always @(posedge clk) begin
     if(rst) for(i=0;i<16;i=i+1) regFile[i] <= 0;
-        else if(wr) regFile[drAddr] <= writeData;
+    else if(wr) regFile[drAddr] <= writeData;
 end
 endmodule
 

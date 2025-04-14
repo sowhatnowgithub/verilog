@@ -80,7 +80,6 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
     reg [4:0] state;
 
     always @(opcode) begin
-        isRegWriteback <= 0;
         isCall <= 0;
         isAdd <= 0;
         isCmp <= 0;
@@ -97,6 +96,7 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
         isMov <= 0;
         aluSel <= 0;
         isLd <= 0;
+        rstRegFile <= 0;
         isSt <= 0;
         if (opcode == 5'b10010 || opcode == 5'b10011 || opcode == 5'b10100) begin
             isBranchTaken <= 1'b1;
@@ -115,7 +115,8 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
             isAdd <= 1;
         end
         if (opcode == 5'b01111) begin
-            isSt  <= 1;
+            isSt <= 1;
+            isRegWriteback <= 0;
             isAdd <= 1;
         end
         if (opcode == 5'b10100) isRet <= 1;
@@ -192,7 +193,6 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
                 clrPC <= 1;
                 clrNPC <= 1;
                 clrInst <= 1;
-                clrOutputRegData <= 1;
                 clrResult <= 1;
                 isAdd <= 0;
                 isCmp <= 0;
@@ -213,6 +213,7 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
                 rstRegFile <= 0;
                 isCall <= 0;
                 clrBrnchTarger <= 0;
+                isRegWriteback <= 1;
                 ldNPC <= 1;
                 ldInst <= 1;
                 rstFlag <= 0;
@@ -222,14 +223,14 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
                 clrPC <= 0;
                 clrNPC <= 0;
                 clrInst <= 0;
-                clrOutputRegData <= 0;
                 clrResult <= 0;
                 ldResult <= 1;
+                ldDecodeInst <= 1;
                 state <= s3;
             end
             s3: begin
                 ldPC <= 0;
-                ldDecodeInst <= 1;
+                isRegWriteback <= 1;
                 state <= s4;
             end
             s4: begin

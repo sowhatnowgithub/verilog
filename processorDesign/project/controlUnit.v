@@ -235,48 +235,59 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
                 state <= s4;
             end
             s4: begin
+                ldPC <= 1;
                 ldRegOutputData <= 1;
                 state <= s5;
             end
             s5: begin
-                ldPC  <= 1;
+                ldPC  <= 0;
                 state <= s6;
             end
             s6: begin
-                ldPC  <= 0;
+                ldPC  <= 1;
                 state <= s7;
             end
             s7: begin
+                ldPC  <= 0;
                 state <= s8;
             end
             s8: begin
+                ldPC  <= 1;
                 state <= s9;
             end
             s9: begin
-                ldPC  <= 1;
-                state <= s10;
+                ldPC  <= 0;
+
+                state <= s6;
             end
             s10: begin
-                ldPC  <= 0;
+                ldPC  <= 1;
+
                 state <= s11;
             end
             s11: begin
+                ldPC  <= 0;
+
+
                 state <= s12;
             end
             s12: begin
+                ldPC  <= 0;
+
                 state <= s13;
             end
             s13: begin
-                ldPC  <= 1;
 
                 state <= s14;
             end
             s14: begin
-                ldPC  <= 0;
+                ldPC  <= 1;
 
                 state <= s15;
             end
             s15: begin
+                ldPC  <= 0;
+
                 state <= s16;
             end
             s16: begin

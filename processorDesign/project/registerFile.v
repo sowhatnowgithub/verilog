@@ -20,22 +20,23 @@ module registerFile (
     input [31:0] writeData;
     reg [31:0] regFile[0:15];
     integer i;
-    assign temp_readData2 = regFile[sr2Addr];
-    assign temp_readData1 = regFile[sr1Addr];
-    dff d1 (
+    assign readData2 = regFile[sr2Addr];
+    assign readData1 = regFile[sr1Addr];
+    /* dff d1 (
         .q  (readData1),
         .d  (temp_readData1),
         .ld (ldData),
         .clr(clrData),
         .clk(clk)
     );
-    dff d2 (
+     dff d2 (
         .q  (readData2),
         .d  (temp_readData2),
         .ld (ldData),
         .clr(clrData),
         .clk(clk)
     );
+    */
     always @(posedge clk) begin
         if (rst) for (i = 0; i < 16; i = i + 1) regFile[i] <= 0;
         if (wr) regFile[drAddr] <= writeData;

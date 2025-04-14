@@ -14,7 +14,7 @@ dff d1(.q(readData1),.d(temp_readData1),.ld(ldData),.clr(clrData),.clk(clk));
 dff d2(.q(readData2),.d(temp_readData2),.ld(ldData),.clr(clrData),.clk(clk));
 
 always @(posedge clk) begin
-    if(rst) for(i=0;i<16;i=i+1) regFile[i] <= 0;
+    if(rst) for(i=0;i<16;i=i+1) regFile[i] <= i;
     else if(wr) regFile[drAddr] <= writeData;
 end
 endmodule

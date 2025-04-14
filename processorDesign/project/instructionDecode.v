@@ -23,7 +23,7 @@ PIPO1 pipo3(.out(tempInst),.in(readInst),.ld(ldInst),.clr(clrInst),.clk(clk) );
 wire [31:0] signedOffset;
 assign signedOffset = {{5{currentInst[26]}}, currentInst[26:0]}; // Sign-extend 27-bit to 32-bit
 
-always @(posedge clk) begin
+always @(isBranchTaken) begin
     if (clrBrnchTrgt)
         branchTarget <= 0;
     else if (isBranchTaken)

@@ -45,7 +45,6 @@ ldA,
 ldB,
 clrA,
 clrB,
-aluSel,
 isAdd,
 isCmp,
 isSub,
@@ -59,10 +58,10 @@ isOr,
 isNot,
 isAnd,
 isMov;
-
-
-alu alu1(ldResult,clrResult,ldA,ldB,clrA,clrB,aluSel,aluResult,iOrReg,isAdd,isCmp,isSub,isMul,isDiv,isMod,isLsl,isLsr,isAsr,isOr,isNot,isAnd,isMov,op1,op2,imm,isEq,isGt,isCmp,clk);
-flags flagReg(flagE,flagGt,isEq,isGt,wrFlag,clk,rstFlag);
+wire [2:0]aluSel;
+wire [31:0]aluResult;
+alu alu1(ldResult,clrResult,aluSel,aluResult,iOrReg,isAdd,isCmp,isSub,isMul,isDiv,isMod,isLsl,isLsr,isAsr,isOr,isNot,isAnd,isMov,readRegData1,readRegData2,imm,isEq,isGt,wrFlag,clk);
+flags flagReg(flagE,flagGt,isEq,isGt,isCmp,clk,rstFlag);
 branchPCGen branchpcgen1(.branchTarget(branchTarget),.op1(readRegData1),.isRet(isRet),.branchPC(branchPC));
 registerFile regFile1(ldRegOutputData,clrOutputRegData,readRegData1,readRegData2,writeRegData,output1,output2,drAddr, wrRegister,clk,rstRegFile);
 operandFetchUnit operandFetch(isRet,isSt, rs1,rs2,rd,ra, output1,output2);
@@ -72,10 +71,6 @@ instructionMem mem1(currentPC, readInst, writeInstAddr, writeInstData, wrInstMem
 controlUnit cntrlUnit(
     ldResult,
     clrResult,
-    ldA,
-    ldB,
-    clrA,
-    clrB,
     aluSel,
     isAdd,
     isCmp,
@@ -106,8 +101,6 @@ controlUnit cntrlUnit(
     rstRegFile,
     ldRegOutputData,
     clrOutputRegData,
-    isEq,
-    isGt,
     wrFlag,
     rstFlag,
     clk,
@@ -137,7 +130,7 @@ initial begin
     #30;
     $readmemb("data.bin", mem);
     wrInstMem = 1;
-    for (i=0;i<6;i=i+1) begin
+    for (i=0;i<8;i=i+1) begin
         writeInstAddr = i*4;
         writeInstData = mem[i];
         #10;
@@ -146,14 +139,18 @@ initial begin
     wrInstMem = 0;
     #10;
     start = 1;
+    #20;
+
 end
 initial begin
-    $monitor($time," ,PC:%0d Ins:%08h start:%0d \n Inst:%08h - opcode:%b rs1:%b rs2:%b rd:%b imm:%b \n output1:%b output2:%b branchPC:%0d \n modifier:%0d iOrReg:%b \n flagE:%b, flagGt:%b isBranchTaken:%b",
+    $monitor($time," ,PC:%0d Ins:%08h start:%0d \n Inst:%08h - opcode:%b rs1:%b rs2:%b rd:%b imm:%b \n output1:%b output2:%b branchPC:%0d \n modifier:%0d iOrReg:%b \n flagE:%b, flagGt:%b isBranchTaken:%b \n readRegData1:%0d readRegData2:%0d aluResult:%0d wrFlag:%b",
         currentPC, fetchedInst,cntrlUnit.state,
         decode.currentInst,decode.opcode,decode.rs1,
         decode.rs2,decode.rd,decode.imm,operandFetch.output1,
         operandFetch.output2,
-        branchPC ,cntrlUnit.modifier, iOrReg ,flagE,flagGt, isBranchTaken);
+        branchPC ,cntrlUnit.modifier, iOrReg ,flagE,flagGt, isBranchTaken,
+        readRegData1,readRegData2, aluResult, alu1.Gt
+    );
 end
 
 endmodule

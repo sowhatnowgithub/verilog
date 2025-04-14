@@ -1,4 +1,6 @@
 module controlUnit (
+    isRegWriteback,
+    isCall,
     ldResult,
     clrResult,
     aluSel,
@@ -27,6 +29,7 @@ module controlUnit (
     ldDecodeInst,
     clrDecodeInst,
     isSt,
+    isLd,
     isRet,
     rstRegFile,
     ldRegOutputData,
@@ -41,7 +44,7 @@ module controlUnit (
     iOrReg,
     modifier
 );
-    output reg ldResult,
+    output reg isRegWriteback,isCall,ldResult,
     clrResult,
     isAdd,
     isCmp,
@@ -63,7 +66,7 @@ ldNPC
 ,clrNPC,
 ldDecodeInst,
 clrDecodeInst,
-isSt,rstFlag,
+isSt, isLd,rstFlag,
 isRet,
 rstRegFile,
 ldRegOutputData,
@@ -77,22 +80,27 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
     reg [4:0] state;
 
     always @(opcode) begin
-        isAdd  <= 0;
-        isCmp  <= 0;
-        isSub  <= 0;
-        isMul  <= 0;
-        isDiv  <= 0;
-        isMod  <= 0;
-        isLsl  <= 0;
-        isLsr  <= 0;
-        isAsr  <= 0;
-        isOr   <= 0;
-        isNot  <= 0;
-        isAnd  <= 0;
-        isMov  <= 0;
+        isRegWriteback <= 0;
+        isCall <= 0;
+        isAdd <= 0;
+        isCmp <= 0;
+        isSub <= 0;
+        isMul <= 0;
+        isDiv <= 0;
+        isMod <= 0;
+        isLsl <= 0;
+        isLsr <= 0;
+        isAsr <= 0;
+        isOr <= 0;
+        isNot <= 0;
+        isAnd <= 0;
+        isMov <= 0;
         aluSel <= 0;
+        isLd <= 0;
+        isSt <= 0;
         if (opcode == 5'b10010 || opcode == 5'b10011 || opcode == 5'b10100) begin
             isBranchTaken <= 1'b1;
+            if (opcode == 5'b10011) isCall <= 1;
         end else if ((opcode == 5'b10000) && flagE) isBranchTaken <= 1'b1;
         else if ((opcode == 5'b10001) && flagGt) isBranchTaken <= 1'b1;
         else begin
@@ -102,6 +110,16 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
             end
 
         end
+        if (opcode == 5'b01110) begin
+            isLd  <= 1;
+            isAdd <= 1;
+        end
+        if (opcode == 5'b01111) begin
+            isSt  <= 1;
+            isAdd <= 1;
+        end
+        if (opcode == 5'b10100) isRet <= 1;
+        else isRet <= 0;
         if (opcode == 5'd0) begin
             isAdd  <= 1;
             aluSel <= 3'd0;
@@ -157,8 +175,10 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
                 else state <= s0;
             end
             s1: begin
+                isRegWriteback <= 0;
                 isRet <= 0;
                 isSt <= 0;
+                isLd <= 0;
                 rstFlag <= 1;
                 rstRegFile <= 1;
                 clrOutputRegData <= 1;
@@ -191,6 +211,7 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
             end
             s2: begin
                 rstRegFile <= 0;
+                isCall <= 0;
                 clrBrnchTarger <= 0;
                 ldNPC <= 1;
                 ldInst <= 1;

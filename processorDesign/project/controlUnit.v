@@ -111,12 +111,13 @@ clrOutputRegData,isBranchTaken,wrFlag,ldBrnchTarget,clrBrnchTarger;
 
         end
         if (opcode == 5'b01110) begin
-            isLd  <= 1;
+            isLd <= 1;
+            isRegWriteback <= 1;
             isAdd <= 1;
         end
         if (opcode == 5'b01111) begin
-            isSt <= 1;
             isRegWriteback <= 0;
+            isSt <= 1;
             isAdd <= 1;
         end
         if (opcode == 5'b10100) isRet <= 1;

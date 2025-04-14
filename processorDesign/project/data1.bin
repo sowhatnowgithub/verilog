@@ -3,6 +3,5 @@ mov r1, 0x01
 mov r7, 0x3
 mov r14, r7
 add r4, r3, r1
-ld r3, 0x03[r1]
-st r5, 0x03[r1]
-mov r6, r5
+st r3, 0x03[r1]
+ld r5, 0x03[r1]
